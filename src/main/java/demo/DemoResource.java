@@ -1,5 +1,6 @@
 package demo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +26,16 @@ public class DemoResource {
     @Context
     UriInfo uriInfo;
 
+    @Autowired
+    DemoRepository demoRepository;
+
     @GET
     @Path("{id}")
     @Produces("application/json")
     public Response getDemo(@PathParam("id") Integer id) {
         if (db.containsKey(id)) {
-            return Response.ok(db.get(id)).build();
+            Demo demo = demoRepository.findOne(id);
+            return Response.ok(demo).build();
         }
 
         throw new WebApplicationException("Demo, " + id + "not found");
@@ -39,11 +44,11 @@ public class DemoResource {
     @PUT
     @Path("{id}")
     @Consumes("application/json")
-    @Produces("")
     public Response updateDemo(@PathParam("id") Integer id, Demo demo) {
         if (db.containsKey(id)) {
             demo.setId(id);
             db.put(id, demo);
+            demoRepository.save(demo);
             return Response.noContent().build();
 
         }
@@ -58,6 +63,7 @@ public class DemoResource {
         idCount += 1;
         demo.setId(idCount);
         db.put(idCount, demo);
+        demoRepository.save(demo);
         UriBuilder ub = uriInfo.getAbsolutePathBuilder();
         URI demoUri =  ub
                     .path(demo.getId().toString())
@@ -72,6 +78,7 @@ public class DemoResource {
     public Response deleteDemo(@PathParam("id") Integer id) {
         if (db.containsKey(id)) {
             db.remove(id);
+            demoRepository.delete(id);
             return Response.ok().build();
         }
 

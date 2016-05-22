@@ -1,12 +1,13 @@
 package demo;
 
-import org.springframework.stereotype.Component;
+import org.springframework.data.annotation.Id;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Created by Anthony on 5/20/16.
  */
+
 
 @XmlRootElement
 public class Demo {
@@ -28,5 +29,6 @@ public class Demo {
         this.id = id;
     }
 
+    @Id
     private Integer id;
 }
