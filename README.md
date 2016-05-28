@@ -1,13 +1,20 @@
 # rest_skeleton
-skeleton for building rest services in spring/jersey
+skeleton for building rest services in spring/jersey/mongodb/swagger
 
 To run call ./gradlew bootRun
 
+requires a local instance of mongod to be running.
+
 sample calls
+```
+Endpoint documentation 
+   url: localhost:8080/api/swagger.json
+   
+```
 
 ```
 POST 
-   url: localhost:8080/demo/
+   url: localhost:8080/api/demo/
    
    body: {
             "text" : "hello world"
@@ -18,13 +25,13 @@ POST
 
 ```
 GET
-   url: localhost:8080/demo/{id}
+   url: localhost:8080/api/demo/{id}
 
 ```
 
 ```
 PUT
-   url: localhost:8080/demo/{id}
+   url: localhost:8080/api/demo/{id}
    body:
         {
             "text" : {updated text}
@@ -34,17 +41,14 @@ PUT
 
 ```
 DELETE
-   url: localhost:8080/demo/{id}
+   url: localhost:8080/api/demo/{id}
 
 ```
 
 TODO:
 
-Test Cases
+Get swagger UI to consume swagger.json
 
-Comments
-
-~~MongoDB integration~~
 
 
 
